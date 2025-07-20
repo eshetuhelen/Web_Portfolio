@@ -7,6 +7,9 @@ body {
     overflow-x: hidden;
 }
 
+
+
+
 h1, h2, h3 {
     font-weight: bold;
     margin: 0;
@@ -36,19 +39,19 @@ a:hover {
     align-items: center;
     
 }
-/* Header */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
-    background: linear-gradient(135deg, #2c3e50, #413faf);
     position: fixed;
-    width: 100%;
     top: 0;
+    width: 100%;
+    min-height: clamp(60px, 8vh, 80px); /* Adaptive height */
+    padding: 0.5rem 5%;
+    background: linear-gradient(135deg, #2c3e50, #413faf);
     z-index: 1000;
-}
+    display: flex;
+    align-items: center;
 
+
+}
 header .logo {
     font-size: 1.8rem;
     font-weight: bold;
@@ -75,6 +78,7 @@ header nav ul li a {
     position: fixed;
     top: 0;
     width: 100%;
+    max-width: 1200px;
     background: rgba(94, 110, 155, 0.95);
     box-shadow: 0 2px 2px rgba(0,0,0,0.1);
     z-index: 1000;
@@ -383,6 +387,9 @@ section {
         font-size: 0.9rem;
     }
 }
+
+
+
 
 
 
@@ -798,31 +805,105 @@ button:hover {
 }
 
 
+/* ===== TECH FOOTER ===== */
+.tech-footer {
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  color: white;
+  padding: 2rem 0;
+  overflow: hidden;
+}
 
-
+/* ===== LOGO ROW ANIMATION ===== */
 .footer-logos {
-    display: flex;
-    gap: 20px;
-    animation: move-logos 10s linear infinite;
+  margin: 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 1rem 0;
+}
+
+.logo-track {
+  display: flex;
+  gap: 2.5rem;
+  animation: scrollLogos 25s linear infinite;
+  will-change: transform;
+  padding: 1rem;
+}
+
+@keyframes scrollLogos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .footer-logo {
-    max-width: 100px;
-    transition: transform 0.3s ease;
+  width: 60px;
+  height: 60px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
-.footer-logos:hover .footer-logo {
-    transform: scale(1.1);
+.footer-logo:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
 }
 
-@keyframes move-logos {
-    0% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(200px);
-    }
-    100% {
-        transform: translateX(0);
-    }
+.footer-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
+
+/* Tooltips */
+.footer-logo::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.footer-logo:hover::after {
+  opacity: 1;
+}
+
+/* ===== COPYRIGHT ===== */
+.copyright {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .logo-track {
+    gap: 1.5rem;
+    animation-duration: 20s;
+  }
+  
+  .footer-logo {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion) {
+  .logo-track {
+    animation: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+
+
+
+
+
