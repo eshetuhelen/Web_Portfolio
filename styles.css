@@ -1,14 +1,30 @@
 /* General Styles */
-body {
+html, body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     background-color: #164f61;
     color: #fff;
     overflow-x: hidden;
+    height: 100%;
 }
 
 
+body {
+  padding-top: 50px; /* Adjust based on your header height */
+}
 
+body::after {
+  content: '';
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+
+main {
+  flex: 1;
+  overflow: hidden; /* Contains any floating elements */
+}
 
 h1, h2, h3 {
     font-weight: bold;
@@ -84,9 +100,7 @@ header nav ul li a {
     z-index: 1000;
 }
 
-body {
-  padding-top: 40px; /* Adjust based on your header height */
-}
+
 
 .logo {
     font-size: 1.6rem;
@@ -292,10 +306,14 @@ body {
 
 
 
-/* Section Styles */
 section {
+    position: relative; /* Contains backgrounds */
+    z-index: 1; /* Stacks above body */
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
     padding: 60px 0;
 }
+
 
 .section-title {
     text-align: center;
@@ -311,11 +329,14 @@ section {
 }
 
 .tech-footer {
-    background: #2a2a2a;
+    
     color: white;
     padding: 2rem 0;
     font-family: 'Segoe UI', sans-serif;
+    position: relative;
+   
 }
+
 
 .footer-content {
     max-width: 1200px;
@@ -472,10 +493,17 @@ section {
 
 /* Contact Section */
 .contact {
-    padding: 60px 0;
+    
     background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Gradient background */
     color: #fff;
+    
+    padding-top: 80px; /* Content spacing */
+    
+    margin-top: 20px;
+     
 }
+
+
 
 .contact .container {
     display: flex;
@@ -489,7 +517,7 @@ section {
     flex-wrap: wrap;
     gap: 40px;
     justify-content: space-between;
-    width: 100%;
+    width: 80%;
 }
 
 .contact-info {
@@ -805,13 +833,53 @@ button:hover {
 }
 
 
-/* ===== TECH FOOTER ===== */
 .tech-footer {
-  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
   color: white;
-  padding: 2rem 0;
-  overflow: hidden;
+  padding: 1rem;
+  width: 100%;
+  position: relative;
+  /* Reduce these to normal content padding */
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  margin-top: 2rem; /* Creates space above footer */
+  background: transparent; /* Remove bg from main element */
+  overflow: visible; /* Allows pseudo-element to extend */
 }
+
+/* Gradient background with gap */
+.tech-footer::before {
+  content: '';
+  position: absolute;
+  top: 30px; /* Starts below the gap */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  z-index: -1;
+  border-radius: 20px 20px 0 0; /* Optional rounded top */
+}
+
+/* Body adjustment */
+body {
+  padding-bottom: 40px; /* Ensures space for footer bg */
+}
+
+/* Add this to extend the gradient without extra padding */
+.tech-footer::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; /* Extends gradient below */
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: inherit;
+  z-index: -1;
+}
+
+
+
+
+
 
 /* ===== LOGO ROW ANIMATION ===== */
 .footer-logos {
@@ -829,14 +897,16 @@ button:hover {
   padding: 1rem;
 }
 
+
+
 @keyframes scrollLogos {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
 .footer-logo {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
@@ -852,33 +922,13 @@ button:hover {
   object-fit: contain;
 }
 
-/* Tooltips */
-.footer-logo::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.8);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
+
 
 .footer-logo:hover::after {
   opacity: 1;
 }
 
-/* ===== COPYRIGHT ===== */
-.copyright {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
+
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
@@ -888,8 +938,8 @@ button:hover {
   }
   
   .footer-logo {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -907,3 +957,18 @@ button:hover {
 
 
 
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .tech-footer {
+    padding: 1.5rem 0;
+  }
+  
+  .contact {
+    background-attachment: scroll;
+  }
+}
